@@ -1,3 +1,4 @@
+
 Enterprise Database Migration – SQL Server to PostgreSQL (Softronics Project)
 📌 Project Overview
 As part of a critical enterprise-level migration project for Softronics, I successfully led the end-to-end Database Migration process from Microsoft SQL Server to PostgreSQL for three large-scale production databases. The primary objective was to ensure full data and logic parity across both platforms while maintaining performance, integrity, and scalability.
@@ -70,3 +71,4 @@ Cross-platform Database Migration Strategy
 
 📌 Why This Project Matters
 This project showcases my ability to manage enterprise-level data migrations, handle deep technical complexity, and develop automation solutions to streamline repetitive tasks. It also reflects my problem-solving mindset, adaptability, and strong foundation in both relational databases and programming.
+
