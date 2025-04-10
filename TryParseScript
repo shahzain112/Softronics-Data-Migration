@@ -1,0 +1,32 @@
+import re
+
+def convert_sql_server_to_postgresql(sql_query):
+    """
+    Convert SQL Server TRY_PARSE query for date parsing into PostgreSQL-compatible TO_TIMESTAMP syntax.
+    """
+    def replace_try_parse(match):
+        # Extract the datetime and format
+        datetime_part = match.group(1)
+        # PostgreSQL-compatible conversion
+        postgres_conversion = f"""
+        COALESCE(
+            TO_TIMESTAMP({datetime_part}, 'YYYY-MM-DD HH24:MI:SS'),
+            TO_TIMESTAMP({datetime_part}, 'YYYY-MM-DD HH12:MI:SS AM'),
+            TO_TIMESTAMP({datetime_part}, 'Mon DD YYYY HH12:MI PM')
+        )
+        """
+        return postgres_conversion.strip()
+
+    # Find and replace TRY_PARSE patterns
+    pattern = r"TRY_PARSE\((.*?) AS DATETIMEOFFSET USING 'en-US'\)"
+    converted_query = re.sub(pattern, replace_try_parse, sql_query)
+
+    return converted_query.strip()
+
+# Example usage
+sql_server_query = """
+TRY_PARSE(LEFT(DP.TrackingRequest, 23) AS DATETIMEOFFSET USING 'en-US')) AS DasDurationEndDate
+    FROM DAS_DD_DASProject AS P 
+"""
+converted_query = convert_sql_server_to_postgresql(sql_server_query)
+print(converted_query)
